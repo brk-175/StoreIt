@@ -9,6 +9,7 @@
 
   body {
     @apply bg-white text-dark-200 min-h-screen;
+    filter: invert(1);
   }
 
   /* Remove scrollbar */
