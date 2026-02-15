@@ -4,10 +4,22 @@ import { Account, Avatars, Client, Databases, Storage } from "node-appwrite";
 import { appwriteConfig } from "@/lib/appwrite/config";
 import { cookies } from "next/headers";
 
+const applySelfSignedIfNeeded = (client: Client) => {
+  if (!appwriteConfig.selfSigned) return;
+
+  const maybeClient = client as unknown as {
+    setSelfSigned?: (selfSigned: boolean) => Client;
+  };
+
+  maybeClient.setSelfSigned?.(true);
+};
+
 export const createSessionClient = async () => {
   const client = new Client()
     .setEndpoint(appwriteConfig.endpointUrl)
     .setProject(appwriteConfig.projectId);
+
+  applySelfSignedIfNeeded(client);
 
   const session = (await cookies()).get("appwrite-session");
 
@@ -30,6 +42,8 @@ export const createAdminClient = async () => {
     .setEndpoint(appwriteConfig.endpointUrl)
     .setProject(appwriteConfig.projectId)
     .setKey(appwriteConfig.secretKey);
+
+  applySelfSignedIfNeeded(client);
 
   return {
     get account() {

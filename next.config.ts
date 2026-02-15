@@ -4,10 +4,8 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   experimental: {
+    turbopackUseSystemTlsCerts: true,
     serverActions: {
       bodySizeLimit: "100MB",
     },
