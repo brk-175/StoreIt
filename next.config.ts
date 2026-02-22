@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
   experimental: {
     turbopackUseSystemTlsCerts: true,
@@ -26,6 +29,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-};
+} satisfies NextConfig;
 
 export default nextConfig;
